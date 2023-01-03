@@ -1,0 +1,58 @@
+link -  https://leetcode.com/problems/most-profitable-path-in-a-tree/
+
+
+class Solution:
+    def mostProfitablePath(self, edges: List[List[int]], bob: int, amount: List[int]) -> int:
+        n=len(amount)
+        adj=[[] for i in range(n)]
+        for u,v in edges:
+            adj[u].append(v)
+            adj[v].append(u)
+            
+        def finpath(nod,vis,tem,bob):
+            tem.append(nod)
+            if nod==bob:
+                
+                return True
+            for x in adj[nod]:
+                if x not in vis:
+                    vis.add(x)
+                    if finpath(x,vis,tem,bob) is True:
+                        return True
+                    vis.discard(x)
+            tem.pop(-1)
+            return False
+        tem=[]
+        finpath(0,set([0]),tem,bob)
+        midi=set()
+        bobi=set()
+        kk=len(tem)
+        if kk%2==1:
+            midi.add(tem[kk//2])
+            bobi=set(tem[kk//2+1:])
+        else:
+            bobi=set(tem[kk//2:])
+        total=[-1e12]    
+        def maxprofit(nod,sumi,total,vis,bobi,midi):
+            flag=0
+            for x in adj[nod]:
+                if x not in vis:
+                    vis.add(x)
+                    tt=sumi
+                    if x in midi:
+                        tt=sumi+amount[x]//2
+                    elif x not in bobi:
+                        tt=sumi+amount[x]
+                    flag=1
+                    maxprofit(x,tt,total,vis,bobi,midi)
+                    vis.discard(x)
+            if flag==0:
+                total[0]=max(total[0],sumi)
+        pp=0
+        if 0 in midi:
+            pp+=amount[0]//2
+        elif 0 not in bobi:
+            pp+=amount[0]
+        maxprofit(0,pp,total,set([0]),bobi,midi)
+        return total[0]
+        
