@@ -1,0 +1,32 @@
+link:-  https://leetcode.com/problems/longest-happy-prefix/description/
+
+
+A string is called a happy prefix if is a non-empty prefix which is also a suffix (excluding itself).
+
+Given a string s, return the longest happy prefix of s. Return an empty string "" if no such prefix exists.
+
+
+
+
+
+class Solution:
+    def longestPrefix(self, s: str) -> str:
+        mod=10**9+7
+        od=ord("a")
+        i=0
+        j=len(s)-1
+        h1=0
+        h2=0
+        mul=1
+        leng=0
+        while j>0:
+            fir=ord(s[i])-od
+            sec=ord(s[j])-od
+            h1=(h1*26+fir)%mod
+            h2=(h2+mul*sec)%mod
+            mul=mul*26%mod
+            if h1==h2:
+                leng=i+1
+            i+=1
+            j-=1    
+        return s[:leng] 
