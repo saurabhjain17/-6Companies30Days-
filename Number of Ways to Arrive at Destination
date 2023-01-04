@@ -1,0 +1,29 @@
+link:-  https://leetcode.com/problems/number-of-ways-to-arrive-at-destination/
+
+from heapq import heappop,heappush
+class Solution:
+    def countPaths(self, n: int, roads: List[List[int]]) -> int:
+        adj=[[] for i in range(n)]
+        mod=10**9+7
+        for u,v,w in roads:
+            adj[u].append([w,v])
+            adj[v].append([w,u])
+        pq=[]
+        ways=[0]*n
+        dis=[1e20]*n
+        ways[0]=1
+        heappush(pq,(0,0))
+        while pq:
+            d,u=heappop(pq)
+            if d>dis[u]:
+                continue
+            for w,v in adj[u]:
+                if dis[v]>d+w:
+                    dis[v]=d+w
+                    ways[v]=ways[u]
+                    heappush(pq,(dis[v],v))
+                elif dis[v]==d+w:
+                    ways[v]=ways[u]+ways[v]
+                ways[v]%=mod
+        # print(ways)        
+        return ways[-1]                    
