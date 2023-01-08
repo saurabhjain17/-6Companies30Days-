@@ -1,0 +1,17 @@
+link:- https://leetcode.com/problems/ipo/
+
+from heapq import heappop,heappush
+class Solution:
+    def findMaximizedCapital(self, k: int, w: int, profits: List[int], capital: List[int]) -> int:
+        size=0
+        ans=0
+        n=len(profits)
+        project=sorted(zip(profits,capital),key=lambda x:x[1])
+        h=[]
+        for _ in range(k):
+            while size<n and project[size][1]<=w:
+                heappush(h,-project[size][0])
+                size+=1
+            if h:
+                w-=heappop(h)
+        return w 
