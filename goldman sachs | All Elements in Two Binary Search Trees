@@ -1,0 +1,32 @@
+link:  https://leetcode.com/problems/all-elements-in-two-binary-search-trees/
+
+
+class Solution:
+    def merge(self,arr,brr):
+        n=len(arr)
+        m=len(brr)
+        new=[]
+        i=j=0
+        while i<n and j<m:
+            if arr[i]<brr[j]:
+                new.append(arr[i])
+                i+=1
+            else:
+                new.append(brr[j])
+                j+=1
+        while i<n:
+            new.append(arr[i])
+            i+=1
+        while j<m:
+                new.append(brr[j])
+                j+=1
+        return new        
+    def inorder(self,root):
+        if root is None:
+            return []
+        return self.inorder(root.left)+[root.val]+self.inorder(root.right)
+    def getAllElements(self, root1: TreeNode, root2: TreeNode) -> List[int]:
+        set1=self.inorder(root1)
+        set2=self.inorder(root2)
+        set3=self.merge(set1,set2)
+        return set3
