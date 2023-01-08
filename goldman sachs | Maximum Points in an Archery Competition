@@ -1,0 +1,23 @@
+link: https://leetcode.com/problems/maximum-points-in-an-archery-competition/
+
+class Solution:
+    def maximumBobPoints(self, numArrows: int, aliceArrows: List[int]) -> List[int]:
+        maxi=[0]
+        op=[[]]
+        left=[0]
+        def rec(arrow,lis,n,tem,score):
+            if n==12:
+                if score>maxi[0]:
+                    maxi[0]=score
+                    op[0]=tem.copy()
+                    op[0][0]+=arrow
+                return
+            tem.append(0)    
+            rec(arrow,lis,n+1,tem,score)
+            tem.pop(-1)
+            if arrow>lis[n]:
+                tem.append(lis[n]+1)
+                rec(arrow-lis[n]-1,lis,n+1,tem,score+n)  
+                tem.pop(-1)      
+        rec(numArrows,aliceArrows,0,[],0)             
+        return op[0]
