@@ -21,5 +21,25 @@ questions/challenge  link :- https://docs.google.com/document/d/1jkVKWPcOAE2Xjt7
      13.Seat Arrangement in a SpiceJet Problem - Online OA February ‘22
      14.Deletions to make an array divisible.
      15.Substrings containing all three Characters
+     
+     
+2. Goldman sachs
+
+      1.Max Points on a Line
+      2.Valid Square
+      3.Factorial with Trailing Zeroes
+      4.Number of Boomerangs (Similar to peacocks question)
+      5.Split Array into Sequences
+      6.Minimum Consecutive Cards to pick up
+      7.Count Good Triplets in Array (Profits in a Startup Question)
+      8.Maximum Points in Archery Competition
+      9.Initial Public Offering
+      10.People and Secret
+      11.Invalid Transactions in an EMI
+      12.All elements of a binary Search Tree
+      13.Rhombus Sums in a GRID
+      14.Nice Pairs in Array (OTT Platforms and John)
+      15.Good People based on Statements
+
 
 
