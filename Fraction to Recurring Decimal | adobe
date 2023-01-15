@@ -1,0 +1,38 @@
+class Solution:
+    def fractionToDecimal(self, numerator: int, denominator: int) -> str:
+        if numerator==0:
+            return "0"
+        sign=1
+        if numerator<0:
+            sign*=-1
+            numerator*=-1
+        if denominator<0:
+            sign*=-1
+            denominator=-denominator    
+        
+            
+        front="" 
+        if sign>0:
+                front+= str(numerator//denominator)
+        else:
+                front+="-"+str(numerator//denominator) 
+        rem=numerator%denominator
+        if rem==0:
+            return front
+        res=""
+        d=defaultdict(int) 
+        d[rem]=0
+        ind=0
+        while rem:
+            rem*=10
+            res+=str(rem//denominator) 
+            ind+=1
+            rem%=denominator 
+            if rem in d:
+                res=res[:d[rem]]+"("+res[d[rem]:]+")"
+                break
+            
+               
+            d[rem]=ind    
+        return front+"."+res    
+link:- https://leetcode.com/problems/fraction-to-recurring-decimal/
