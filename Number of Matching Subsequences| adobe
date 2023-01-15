@@ -1,0 +1,18 @@
+class Solution:
+     def numMatchingSubseq(self, s: str, words: List[str]) -> int:
+            dic={chr(ord("a")+i):[] for i in range(26)}
+            counti=0
+            for  word in words:
+                dic[word[0]].append(word)
+            for char in s:
+                list_word=dic[char]
+                dic[char]=[]
+                for i in list_word:
+                    if len(i)==1:
+                        counti+=1
+                    else:
+                        dic[i[1]].append(i[1:])
+            return counti 
+            
+            
+link : https://leetcode.com/problems/number-of-matching-subsequences/            
