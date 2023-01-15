@@ -1,0 +1,15 @@
+link: https://leetcode.com/problems/count-nodes-equal-to-average-of-subtree/
+class Solution:
+    def averageOfSubtree(self, root: Optional[TreeNode]) -> int:
+        ans=[0]
+        def rec(root):
+            if root is None:
+                return 0,0
+            l,ll=rec(root.left)
+            r,rr=rec(root.right)
+            if (l+r+root.val)//(ll+rr+1)==root.val:
+                # print(root.val)
+                ans[0]+=1
+            return l+r+root.val,ll+rr+1
+        rec(root)
+        return ans[0]   
