@@ -1,0 +1,24 @@
+link:- https://leetcode.com/problems/maximum-matrix-sum/
+
+
+class Solution:
+    def maxMatrixSum(self, matrix: List[List[int]]) -> int:
+        sumi=0
+        neg=0
+        zero=0
+        n=len(matrix)
+        m=len(matrix[0])
+        nn=1e18
+        for i in range(n):
+            for j in range(m):
+                sumi+=abs(matrix[i][j])
+                if matrix[i][j]==0:
+                    zero+=1
+                elif matrix[i][j]<0:
+                    neg+=1
+                nn=min(nn,abs(matrix[i][j]))
+        # print(nn)            
+        if zero or neg%2==0:
+            return sumi 
+        else:
+            return sumi-2*nn                
