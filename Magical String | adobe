@@ -1,0 +1,13 @@
+link: https://leetcode.com/problems/magical-string/
+
+
+class Solution:
+    def magicalString(self, n: int) -> int:
+        s = [1,2,2]
+        index = 2
+        while len(s) < n:
+            # according to the last element, we decide the value of 'val'
+            val = 3 - s[-1]
+            s.extend([val]*s[index])
+            index += 1
+        return s[:n].count(1)  
