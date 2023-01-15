@@ -1,0 +1,32 @@
+link : https://leetcode.com/problems/stock-price-fluctuation/
+
+from collections import OrderedDict
+from heapq import heappop, heappush
+class StockPrice:
+
+    def __init__(self):
+        self.d={}
+        self.mini=[]
+        self.maxi=[]
+        self.q=[]
+        self.m=0
+
+    def update(self, timestamp: int, price: int) -> None:
+        self.d[timestamp]=price 
+        heappush(self.mini,(price,timestamp))
+        heappush(self.maxi,(-price,timestamp))
+        self.q.append(price)
+        self.m=max(self.m,timestamp)
+
+    def current(self) -> int:
+        return self.d[self.m]
+
+    def maximum(self) -> int:
+        while -self.maxi[0][0]!=self.d[self.maxi[0][1]]:
+            heappop(self.maxi)
+        return -self.maxi[0][0]    
+
+    def minimum(self) -> int:
+        while self.mini[0][0]!=self.d[self.mini[0][1]]:
+            heappop(self.mini)
+        return self.mini[0][0]
