@@ -1,0 +1,17 @@
+link:- https://leetcode.com/problems/increasing-triplet-subsequence/
+
+class Solution:
+    def increasingTriplet(self, nums: List[int]) -> bool:
+     
+        fir=sec=float("inf")
+        n=len(nums)
+        i=0
+        while i<n:
+            if nums[i]<=fir:
+                fir=nums[i]
+            elif nums[i]<=sec:
+                sec=nums[i]
+            else:
+                return True
+            i+=1
+        return False 
