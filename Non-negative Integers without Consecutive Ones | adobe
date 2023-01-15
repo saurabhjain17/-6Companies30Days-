@@ -1,0 +1,22 @@
+link: https://leetcode.com/problems/non-negative-integers-without-consecutive-ones/
+
+class Solution:
+    def findIntegers(self, n: int) -> int:
+        dp=[0]*32
+        dp[0]=1
+        dp[1]=2
+        for i in range(2,32):
+            dp[i]=dp[i-1]+dp[i-2]
+        ans=0
+        kk=30
+        pre_bit=0
+        for k in range(kk,-1,-1):
+            if (n&(1<<k)):
+                ans+=dp[k]
+                if pre_bit:
+                    return ans 
+                pre_bit=1
+            else:
+                pre_bit=0
+            # k-=1
+        return ans+1 
