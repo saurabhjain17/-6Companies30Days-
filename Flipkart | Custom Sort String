@@ -1,0 +1,18 @@
+link- https://leetcode.com/problems/custom-sort-string/
+
+from collections import defaultdict
+class Solution:
+    def customSortString(self, order: str, s: str) -> str:
+        d=defaultdict(int)
+        for i in s:
+            d[i]+=1
+        ans=""
+        for i in order:
+            if i in d:
+                ans+=i*d[i]
+                d[i]=0
+        for i in d:
+            j=d[i]
+            if j>0:
+                ans+=i*j
+        return ans 
