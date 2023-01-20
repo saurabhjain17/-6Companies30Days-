@@ -1,0 +1,23 @@
+link:-https://leetcode.com/problems/partition-to-k-equal-sum-subsets/
+
+class Solution:
+    def canPartitionKSubsets(self, A: List[int], k: int) -> bool:
+        if len(A) < k:
+                return False
+        ASum = sum(A)
+        A.sort(reverse=True)
+        if ASum % k != 0:
+            return False
+        target = [ASum / k] * k
+
+        def dfs(pos):
+            if pos == len(A): return True
+            for i in range(k):
+                if target[i] >= A[pos]:
+                    target[i] -= A[pos]
+                    if dfs(pos + 1):
+                        return True
+                    target[i] += A[pos]
+                    if target[i]==ASum/k:
+                        return False
+            return False
