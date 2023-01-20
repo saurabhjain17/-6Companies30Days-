@@ -1,0 +1,24 @@
+link:-  https://leetcode.com/problems/shopping-offers/
+
+
+class Solution:
+    def shoppingOffers(self, price: List[int], special: List[List[int]], needs: List[int]) -> int:
+        dp={}
+        def rec(nd,dp):
+            if tuple(nd) in dp:
+                return dp[tuple(nd)]
+            cost=0
+            for i,val in enumerate(nd):    
+                cost+=val*price[i]
+            for need in special:
+                flag=0
+                for i,val in enumerate(nd):
+                    if  val<need[i]:
+                        flag=1
+                        break
+                if flag==0:
+                    new_need=[val-need[i] for i,val in enumerate(nd)]
+                    cost=min(cost,need[-1]+rec(new_need,dp))
+            dp[tuple(nd)]=cost
+            return dp[tuple(nd)]                  
+        return rec(needs,dp)
