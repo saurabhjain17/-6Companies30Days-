@@ -1,0 +1,26 @@
+link- https://leetcode.com/problems/distant-barcodes/
+
+from heapq import heappop, heappush
+class Solution:
+    def rearrangeBarcodes(self, barcodes: List[int]) -> List[int]:
+        ct=Counter(barcodes)
+        h=[]
+        for i in ct:
+            heappush(h,(-ct[i],i))
+        ans=[]
+        while len(h)>1:
+            a,b=heappop(h)
+            c,d=heappop(h)
+            a=-a
+            c=-c
+            ans.append(b)
+            ans.append(d)
+            c-=1
+            a-=1
+            if c>0:
+                heappush(h,(-c,d))
+            if a>0:
+                heappush(h,(-a,b))
+        if len(h)==1:
+            ans.append(h[0][1])        
+        return ans                
