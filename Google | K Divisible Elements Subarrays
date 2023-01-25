@@ -1,0 +1,36 @@
+https://leetcode.com/problems/k-divisible-elements-subarrays/submissions/690665678/
+class Solution:
+    def countDistinct(self, nums: List[int], k: int, p: int) -> int:
+        tem=nums.copy()
+        n=len(nums)
+        for i in range(n):
+            tem[i]=tem[i]%p
+            
+        i=0
+        j=0
+        total=ans=0
+        seti=set()
+        while j<n:
+            while total<k and j<n:
+                if tem[j]==0:
+                    total+=1
+                j+=1
+            while j<n and tem[j]!=0:
+                j+=1
+            
+            # print(i,j)
+            for fir in range(i,j):
+                tem_ans=[]
+                for las in range(fir,j):
+                    
+                    # print(tem_ans)
+                    if tuple(nums[fir:las+1]) not in seti:
+                        seti.add(tuple(nums[fir:las+1]))
+                        ans+=1
+            while i<n and tem[i]!=0:
+                 i+=1
+                    
+            total-=1        
+            i+=1
+          
+        return ans   
