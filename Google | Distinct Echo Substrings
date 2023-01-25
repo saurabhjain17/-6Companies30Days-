@@ -1,0 +1,15 @@
+from collections import defaultdict
+class Solution:
+    def distinctEchoSubstrings(self, text: str) -> int:
+        n=len(text)
+        ans=defaultdict(int)
+        for spl in range(1,n):
+            left=spl-1
+            right=spl
+            while left>-1 and right<n:
+                if text[left:spl]==text[spl:right+1]:
+                    ans[text[left:spl]]+=1
+                left-=1
+                right+=1
+        # print(n)        
+        return len(ans)  
