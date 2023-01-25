@@ -1,0 +1,40 @@
+link: https://leetcode.com/problems/number-of-closed-islands/
+
+class Solution:
+    def dfs(self,p,q,arr,vis,N,M):
+        global check
+        global sumi
+        
+            
+        if p<0 or q<0 or p>=N or q>=M or vis[p][q] or arr[p][q]==1:
+            return
+        if (p==0 or q==0 or p==N-1 or q==M-1) and vis[p][q]==0:
+            
+            check=False
+        sumi+=1
+        vis[p][q]=1
+        
+        self.dfs(p,q+1,arr,vis,N,M)
+        self.dfs(p,q-1,arr,vis,N,M)
+        self.dfs(p-1,q,arr,vis,N,M)
+        self.dfs(p+1,q,arr,vis,N,M)
+        
+        
+        
+    def closedIsland(self, grid: List[List[int]]) -> int:
+        n=len(grid)
+        m=len(grid[0])
+        global check
+        global sumi
+        total=0
+        visited=[[0]*m for _ in range(n)]
+        for i in range(n):
+            for j in range(m):
+                check=True
+                sumi=0
+                if grid[i][j]==0:
+                    self.dfs(i,j,grid,visited,n,m)
+                if sumi>0 and check:
+                    total+=1
+        # print(visited)            
+        return total            
