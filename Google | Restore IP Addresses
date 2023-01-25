@@ -1,0 +1,30 @@
+class Solution:
+    def restoreIpAddresses(self, s: str) -> List[str]:
+        if len(s)>12:
+            return []
+        
+        output=[]
+        def cal(s,count,index):
+            if count==0 or index==len(s):
+                
+                if valid(s)==True:
+                    output.append(str(s))
+                return
+            for i in range(index+1,len(s)):
+                s=s[:i]+"."+s[i:]
+                cal(s,count-1,i+1)
+                s=s[:i]+s[i+1:]
+        def valid(s) :
+            lis=list(s.split("."))
+           
+            if len(lis)!=4:
+                return False
+            for i in lis:
+                if len(i)>1 and i[0]=="0":
+                    return False
+                if int(i)>255 or int(i)<0:
+                    return False
+            return True
+        cal(s,3,0)
+        print(s)
+        return output
