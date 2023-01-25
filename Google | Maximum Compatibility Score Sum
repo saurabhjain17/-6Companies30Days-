@@ -1,0 +1,27 @@
+link: https://leetcode.com/problems/maximum-compatibility-score-sum/
+
+class Solution:
+    def maxCompatibilitySum(self, students: List[List[int]], mentors: List[List[int]]) -> int:
+        m=len(students)
+        n=len(students[0])
+        dp=[[0]*m for i in range(m)]
+        for i in range(m):
+            for j in range(m):
+                t=0
+                for k in range(n):
+                    if students[i][k]==mentors[j][k]:
+                        t+=1
+                dp[i][j]=t
+        def rec(ind,vis,m):
+            if ind==0:
+                return 0
+            ans=0
+            for i in range(m):
+                if vis[i]==0:
+                    vis[i]=1
+                    ans=max(ans,dp[ind-1][i]+rec(ind-1,vis,m))
+                    vis[i]=0
+            return ans
+        vis=[0]*m
+        return  rec(m,vis,m)
+
