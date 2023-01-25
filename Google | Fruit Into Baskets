@@ -1,0 +1,26 @@
+link: https://leetcode.com/problems/fruit-into-baskets/
+from collections import defaultdict
+class Solution:
+    def totalFruit(self, fruits: List[int]) -> int:
+        d=dict()
+        for i in fruits:
+            d[i]=0
+        size=0
+        ans=0
+        i=0
+        n=len(fruits)
+        for j in range(n):
+            if size<2 or d[fruits[j]]>0:
+                d[fruits[j]]+=1
+                if d[fruits[j]]==1:
+                    size+=1
+                ans=max(ans,j-i+1)
+            else:
+                while d[fruits[i]]>1:
+                    d[fruits[i]]-=1
+                    i+=1
+                d[fruits[i]]-=1
+                i+=1
+                d[fruits[j]]+=1
+                ans=max(ans,j-i+1)
+        return ans            
