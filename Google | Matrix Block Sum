@@ -1,0 +1,27 @@
+class Solution:
+    def matrixBlockSum(self, mat: List[List[int]], K: int) -> List[List[int]]:
+        rowSum = [[0 for _ in range(len(mat[i]))] for i in range(len(mat))]
+        ans = [[0 for _ in range(len(mat[i]))] for i in range(len(mat))]
+        
+      
+        for i in range(len(mat)):
+            for j in range(len(mat[i])):
+                if j > 0:
+                    rowSum[i][j] = rowSum[i][j-1]
+                    a = mat[i][j-K-1] if j-K-1 >= 0 else 0 # or 0
+                    b = mat[i][j+K] if j+K < len(mat[i]) else 0 # or 0
+                    rowSum[i][j] += -a+b
+                else:
+                    for k in range(0, min(j+K+1, len(mat[i]))):
+                        rowSum[i][j] += mat[i][k]
+        for i in range(len(rowSum)):
+            for j in range(len(rowSum[i])):
+                if i > 0:
+                    ans[i][j] = ans[i-1][j]
+                    a = rowSum[i-K-1][j] if i-K-1 >= 0 else 0 # or 0
+                    b = rowSum[i+K][j] if i+K < len(rowSum) else 0 # or 0
+                    ans[i][j] += -a+b
+                else:
+                    for k in range(0, min(i+K+1, len(rowSum))):
+                        ans[i][j] += rowSum[k][j]
+        return ans
