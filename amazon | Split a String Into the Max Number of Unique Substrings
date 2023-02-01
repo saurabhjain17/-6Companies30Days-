@@ -1,0 +1,17 @@
+class Solution:
+    def maxUniqueSplit(self, s: str) -> int:
+        ans=[0]
+        def rec(ind,n,seti):
+            if ind==n:
+                ans[0]=max(ans[0],len(seti))
+                return
+            t=""
+            for i in range(ind,n):
+                t+=s[i]
+                if t not in seti:
+                    seti.add(t)
+                    rec(i+1,n,seti)
+                    seti.remove(t)
+        seti=set()
+        rec(0,len(s),seti)
+        return ans[0]            
