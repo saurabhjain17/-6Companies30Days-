@@ -1,0 +1,13 @@
+from heapq import heappop, heappush
+from collections import Counter
+class Solution:
+    def topKFrequent(self, words: List[str], k: int) -> List[str]:
+        pq=[]
+        dp=Counter(words) 
+        ans=[]
+        for I in dp:
+            heappush(pq, (-dp[I],I)) 
+        for I in range(k) :
+            _, a= heappop(pq) 
+            ans.append(a) 
+        return ans  
